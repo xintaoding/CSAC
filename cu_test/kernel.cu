@@ -51,6 +51,7 @@
 #define ndof 9//the elements number of the matrix for svd decomposition
 #define isnp 8//size parameter in homography
 #define nmss 4
+#define P_CORE 0.2
 #define N3 3//size for 3*3 matrix
 #define T_noise_squared 8
 //||x-Hx'||+||inv(H)*x-x'||<T_noise_squared,8 23.512742444991080
@@ -2135,6 +2136,13 @@ int main(void) {
 		double q, eps = 1e-30, epsilon = 1e-6, temp_double;
 		int *dev_result_MSS, *host_result_MSS, results_MSS[nmss];
 
+		n_round = card_core * P_CORE;
+		temp_double = card_core / n_round  * (card_core - 1) / (n_round - 1) * (card_core - 2) / (n_round - 2) * (card_core - 3) / (n_round - 3);
+		n_round = temp_double * 2 / threadsPerBlock / blocksPerGrid;
+		if (n_round < 1)
+			n_round = 1;
+
+		
 		HANDLE_ERROR(cudaMalloc((void**)&dev_result_ninliers, blocksPerGrid * sizeof(int)));//GPU write results back to global memory, since every block works independently in their shared memory.
 		host_result_ninliers = (int *)malloc(blocksPerGrid * sizeof(int));
 		for (i = 0; i<blocksPerGrid; i++)
