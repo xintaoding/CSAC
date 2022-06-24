@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "../../Cuda_by_example/common/book.h"
+#include "../../common/book.h"
 #include <cuda_runtime.h>
 #include <cuda.h>
 #include<device_launch_parameters.h>
