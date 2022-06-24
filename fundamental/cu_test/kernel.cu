@@ -2312,7 +2312,7 @@ int main(int argc, char ** argv) {
 		strcat(file_abstraction, filename);
 		fp = fopen(file_abstraction, "w");
 		//total number of correspondences| card_core| ninliers before n-1/n inliers model fitting | ninliers| cn2| Bitonic sort| RANSAC against core list| GPU| the whole time cost| proj_error 
-		fprintf(fp, "%d\t %d\t %d\t %d\t %d\t %f\t %f\t %f\t %f\t %f\t", n_matches, card_core, n_round, n_temp_init, ninliers, elapsedTime1, elapsedTime2, elapsedTime5, elapsedTime1 + elapsedTime2 + elapsedTime5, elapsedTime1 + elapsedTime2 + elapsedTime5, 0);
+		fprintf(fp, "%d\t %d\t %d\t %d\t %d\t %f\t %f\t %f\t %f\t %f\t %f\t", n_matches, card_core, n_round, n_temp_init, ninliers, elapsedTime1, elapsedTime2, elapsedTime5, elapsedTime1 + elapsedTime2 + elapsedTime5, elapsedTime1 + elapsedTime2 + elapsedTime5, 0);
 		fclose(fp);
 	}
 
