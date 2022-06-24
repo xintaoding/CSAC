@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "../../Cuda_by_example/common/book.h"
+#include "../../common/book.h"
 #include <cuda_runtime.h>
 #include <cuda.h>
 #include<device_launch_parameters.h>
@@ -68,8 +68,8 @@ int return_datanum(FILE *fp)
 	float vals;
 	while (!feof(fp)) {
 		j = fscanf(fp, "%e", &vals);
-		//ÓÃ ·¨:int fscanf(FILE *stream, char *format,[argument...]);
-		//·µ»ØÖµ£ºÕûÐÍ£¬ÊýÖµµÈÓÚ[argument...]µÄ¸öÊý
+		//ç”¨ æ³•:int fscanf(FILE *stream, char *format,[argument...]);
+		//è¿”å›žå€¼ï¼šæ•´åž‹ï¼Œæ•°å€¼ç­‰äºŽ[argument...]çš„ä¸ªæ•°
 		if (j == EOF)
 			break;
 		n += j;
@@ -136,7 +136,7 @@ static int readNDoubles(FILE *fp, float *vals, int nvals, int matlab_flag)
 		n += j;
 	}
 	//for(i=0;i<nvals;++i)
-	//	  printf("%lf",*(vals+i));//¸¨ÖúÊä³öÓï¾ä
+	//	  printf("%lf",*(vals+i));//è¾…åŠ©è¾“å‡ºè¯­å¥
 	return n;
 }
 
@@ -264,7 +264,7 @@ __global__ void extract_parallel_dist_cn2(float *frames0x, float *frames0y, floa
 					int I0_y0 = I0_y;
 					for (n = 1; n < dl; n++)
 					{
-						if (et0 + 1 - sl0)//update variables in I0 using eq. (6)Èç¹ûI0ÉÏµÄÏß¶Î¶Ì
+						if (et0 + 1 - sl0)//update variables in I0 using eq. (6)å¦‚æžœI0ä¸Šçš„çº¿æ®µçŸ­
 						{
 							I0_cur = I0_temp;//eq. (6)
 							I0_x0 += I0_dx*(1 - dl0);//I0_dx is the denotion gxk in eq. (6). dl0 is the denotion exk in eq. (6)
@@ -282,7 +282,7 @@ __global__ void extract_parallel_dist_cn2(float *frames0x, float *frames0y, floa
 							//printf("n=%d, (I0_x,I0_y)=(%d,%d), I0_cur=%f  ", n, I0_x0, I0_y0, I0_next);
 
 						}
-						if (et1 + sl0)//Èç¹ûI1ÉÏµÄÏß¶Î³¤
+						if (et1 + sl0)//å¦‚æžœI1ä¸Šçš„çº¿æ®µé•¿
 						{//update variables in I1 using eq. (6)
 							I1_cur = I1_temp;
 							I1_x += I1_dx *(1 - dl1);
@@ -1852,13 +1852,13 @@ int main(int argc, char ** argv) {
 	float *dev_I0, *dev_I1;
 	//	clock_t start, finish;
 	double duration;
-	_LARGE_INTEGER time_start;  //¿ªÊ¼Ê±¼ä  
-	_LARGE_INTEGER time_over;   //½áÊøÊ±¼ä  
-	double dqFreq;      //¼ÆÊ±Æ÷ÆµÂÊ  
-	LARGE_INTEGER f;    //¼ÆÊ±Æ÷ÆµÂÊ  
+	_LARGE_INTEGER time_start;  //å¼€å§‹æ—¶é—´  
+	_LARGE_INTEGER time_over;   //ç»“æŸæ—¶é—´  
+	double dqFreq;      //è®¡æ—¶å™¨é¢‘çŽ‡  
+	LARGE_INTEGER f;    //è®¡æ—¶å™¨é¢‘çŽ‡  
 	QueryPerformanceFrequency(&f);
 	dqFreq = (double)f.QuadPart;
-	QueryPerformanceCounter(&time_start);   //¼ÆÊ±¿ªÊ¼  
+	QueryPerformanceCounter(&time_start);   //è®¡æ—¶å¼€å§‹  
 											//	start = clock();
 	HANDLE_ERROR(cudaEventCreate(&start1));//time counting
 	HANDLE_ERROR(cudaEventCreate(&stop1));//time counting
@@ -2296,7 +2296,7 @@ int main(int argc, char ** argv) {
 		printf("\nFinally explored the number of inliers satisfying CSAC constraints: %d\n", ninliers);
 		ninliers = N_I_star;
 
-		QueryPerformanceCounter(&time_over);    //¼ÆÊ±½áÊø  
+		QueryPerformanceCounter(&time_over);    //è®¡æ—¶ç»“æŸ  
 		duration = 1000 * (time_over.QuadPart - time_start.QuadPart) / dqFreq;
 		printf("\nThe time cost against the whole demo, including GPU and CPU processing time (ms): %3.2f\n", duration);
 
